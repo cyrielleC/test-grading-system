@@ -1,0 +1,4 @@
+'add.student.link': 'Add a new student'
+'edit.student.link': 'Edit'
+'name.firstname': '%name% %firstname%'
+'birthdate.format': 'm/d/Y'
