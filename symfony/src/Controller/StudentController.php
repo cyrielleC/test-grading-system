@@ -7,7 +7,9 @@ use App\Entity\Student;
 use App\Form\StudentForm;
 use App\Repository\StudentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class StudentController extends Controller
@@ -38,6 +40,11 @@ class StudentController extends Controller
 
         $student = $id ? $studentRepository->find($id) : new Student();
 
+        // If student is not found (has been deleted in between for example)
+        if (null === $student){
+            return $this->redirectToRoute('list');
+        }
+
         $form = $this->createForm(StudentForm::class, $student);
         $form->handleRequest($request);
 
@@ -54,6 +61,24 @@ class StudentController extends Controller
             ]
         );
 
+    }
+
+    /**
+     * Delete a student. No csrf or symfony form validation needed since you can't csrf DELETE method (TODO: look it up further and make real sure)
+     * @Route("/remove/student/{id<\d+>}", name="remove_student", methods={"DELETE"})
+     * @param int $id
+     * @param StudentRepository $studentRepository
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function removeStudent(int $id, StudentRepository $studentRepository){
+        $student = $studentRepository->find($id);
+        if (empty($student)){
+            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
+        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($student);
+        $entityManager->flush();
+        return new JsonResponse();
     }
 
 }

@@ -1,13 +1,34 @@
 {% extends 'base.html.twig' %}
 {% block content %}
     {% for student in students %}
-        <div class="card">
+        <div class="card js-studentId{{ student.id }}">
             <div class="card-body">
                 <h5 class="card-title">{{ 'name.firstname'|trans|replace({'%firstname%': student.firstname, '%name%': student.name}) }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ student.birthdate|date('birthdate.format'|trans) }}</h6>
                 <a href="{{ path('edit_student', {id: student.id}) }}" class="card-link">{{ 'edit.student.link' | trans }}</a>
+                <a href="#" onclick="confirmRemoval({{ student.id }})" class="card-link">{{ 'remove.student.link' | trans }}</a>
                 {#<a href="{{ path('add_grade') }}" class="card-link">{{ 'add.grade.link' | trans }}</a>#}
             </div>
         </div>
     {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    {# TODO: put it in specific JS file #}
+    <script>
+        function confirmRemoval(id){
+            if (confirm('{{ 'remove.confirm'|trans }}')){
+                jQuery.ajax({
+                    url: '/remove/student/' + id,
+                    type: 'DELETE',
+                    success: function(result) {
+                        $('.js-studentId' + id).remove();
+                    },
+                    error: function(){
+                        alert('{{ 'removal.issue.message'|trans  }}');
+                    }
+                });
+            }
+        }
+    </script>
 {% endblock %}

@@ -2,3 +2,6 @@
 'edit.student.link': 'Edit'
 'name.firstname': '%name% %firstname%'
 'birthdate.format': 'm/d/Y'
+'remove.student.link': 'Delete'
+'remove.confirm': 'Are you sure you want to delete this studant ?'
+'removal.issue.message': 'Error !'
