@@ -1,0 +1,10 @@
+{% extends 'bootstrap_4_layout.html.twig' %}
+
+{% block collection_widget %}
+    <ul class="js-ElWithPrototype" data-prototype="{{ form_widget(form.vars.prototype)|e('html_attr') }}">
+    {% for child in form.children%}
+    <li>{{ form_widget(child) }}</li>
+    {% endfor %}
+    </ul>
+    <button onclick="addGradeForm()" type="button" >Add a grade</button>
+{% endblock %}

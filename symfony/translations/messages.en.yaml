@@ -3,5 +3,6 @@
 'name.firstname': '%name% %firstname%'
 'birthdate.format': 'm/d/Y'
 'remove.student.link': 'Delete'
-'remove.confirm': 'Are you sure you want to delete this studant ?'
+'remove.confirm': 'Are you sure you want to delete this student ?'
 'removal.issue.message': 'Error !'
+'add.grade.link': 'Add a grade'

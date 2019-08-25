@@ -1,4 +1,32 @@
 {% extends 'base.html.twig' %}
 {% block content %}
+    {% form_theme form 'FormTheme\\student_form_theme.html.twig' %}
     {{ form(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var $elementWithPrototype = jQuery('.js-ElWithPrototype');
+        $elementWithPrototype.data('index', $elementWithPrototype.find('li').length);
+        function addGradeForm() {
+            // Get the data-prototype
+            var prototype = $elementWithPrototype.data('prototype');
+
+            // get the new index
+            var index = $elementWithPrototype.data('index');
+
+            var newForm = prototype;
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $elementWithPrototype.data('index', index + 1);
+
+            // Display the form in the page in an li
+            var $newFormLi = $('<li></li>').append(newForm).append('<span onclick="$(this).parent().remove()">Delete</span>');
+            $elementWithPrototype.append($newFormLi);
+        }
+    </script>
 {% endblock %}

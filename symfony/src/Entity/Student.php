@@ -35,7 +35,7 @@ class Student
     private $birthdate;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Grade", mappedBy="student_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Grade", mappedBy="student_id", orphanRemoval=true, cascade={"persist"})
      */
     private $grades;
 

@@ -7,7 +7,13 @@
                 <h6 class="card-subtitle mb-2 text-muted">{{ student.birthdate|date('birthdate.format'|trans) }}</h6>
                 <a href="{{ path('edit_student', {id: student.id}) }}" class="card-link">{{ 'edit.student.link' | trans }}</a>
                 <a href="#" onclick="confirmRemoval({{ student.id }})" class="card-link">{{ 'remove.student.link' | trans }}</a>
-                {#<a href="{{ path('add_grade') }}" class="card-link">{{ 'add.grade.link' | trans }}</a>#}
+                <ul>
+                    {% for grade in student.grades %}
+                        <li>
+                            {{ grade.subject }} : {{ grade.mark }}
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     {% endfor %}
