@@ -2,7 +2,7 @@ Light grading system.
 ========================
 
 How to make the app running locally on a computer:
-- Docker and docker-compose needs to be installed on the computer
+- Docker and docker-compose need to be installed on the computer
 - At the root of the repo : 
     - run "docker-compose bulid" to build the containers
     - run "docker-composer up -d" to have them up and running
